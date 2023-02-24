@@ -1,0 +1,26 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+*{box-sizing: border-box; word-break: keep-all;}
+body{font-size: 16px; font-weight: 400; font-family: 'Montserrat', sans-serif; color: #333;}
+.wrap{position: relative; width: 100%;}
+.guide{max-width: 1280px; width: 92%; margin: 0 auto; position: relative; }
+
+.main_visual_wrap{width: 100%; height: 40em; position: relative;}
+.main_visual_wrap .main_visual{width: 100%; height: 100%;}
+.main_visual_wrap .slide_area{width: 100%; height: 100%;}
+.main_visual_wrap .slide_list .content{ width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
+.main_visual_wrap .slide_list01 .content{background-color: #ddd;}
+.main_visual_wrap .slide_list02 .content{background-color: #ccc;}
+.main_visual_wrap .slide_list03 .content{background-color: #eee;}
+.main_visual_wrap .slide_list04 .content{background-color: #999;}
+.main_visual_wrap .slide_list05 .content{background-color: #666;}
+
+.main_visual_wrap .swiper-button .button{z-index: 50; color: #333; cursor: pointer;}
+/* slide_txt_area */
+.main_visual_wrap .slide_txt_area{position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; z-index: 1;}
+.main_visual_wrap .slide_txt_area .guide{width: 80%;}
+.main_visual_wrap .slide_txt_area .current-title{text-transform: uppercase; font-size: 2em; margin-bottom: 0.5em; font-weight: 700;}
+.main_visual_wrap .slide_txt_area .current-subtitle{font-size: 1.2em;}
+
+.swiper-pagination{position: static; width: 100%; margin-top: 2em; display: flex; align-items: center; justify-content: center;}
+.swiper-pagination-bullet{ width: auto; height: auto; background-color: transparent; padding: 0 1em; font-weight: 700;}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스와아퍼 페이지네이션 텍스트 연동</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css">
+  <link rel="stylesheet" href="css/swiper.css">
+  <link rel="stylesheet" href="css/xeicon.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+  <script src="js/custom.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <section class="main_visual_wrap">
+      <div class="main_visual">
+        <div class="slide_area swiper-container">
+          <div class="slide swiper-wrapper">
+            <div class="slide_list slide_list01 swiper-slide" data-title="slide title01" data-subtitle="slide sub title01"><div class="content"></div></div>
+            <div class="slide_list slide_list02 swiper-slide" data-title="slide title02" data-subtitle="slide sub title02"><div class="content"></div></div>
+            <div class="slide_list slide_list03 swiper-slide" data-title="slide title03" data-subtitle="slide sub title03"><div class="content"></div></div>
+            <div class="slide_list slide_list04 swiper-slide" data-title="slide title04" data-subtitle="slide sub title04"><div class="content"></div></div>
+            <div class="slide_list slide_list05 swiper-slide" data-title="slide title05" data-subtitle="slide sub title05"><div class="content"></div></div>
+          </div>
+        </div>
+        <div class="guide">
+          <div class="swiper-pagination slide_num"></div>
+        </div>
+        <div class="slide_txt_area">
+          <div class="guide">
+            <div class="slide-captions"></div> 
+            <!--// slide captions -->
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button">
+        <a href="#" class="swiper-button-prev button" role="button" title="이전"></a>
+        <a href="#" class="swiper-button-next button" role="button" title="다음"></a>
+      </div> 
+      <!---// slide navigation -->
+    </section>
+  </div>
+  <script>
+    var menu = ['slide01', 'slide02', 'slide03','slide04','slide05']
+    var swiper = new Swiper(".swiper-container", {
+        //centeredSlides: "true",
+        slidesPerView: "auto",
+        // autoplay: {
+        //     delay: 2500,
+        //     disableOnInteraction: false,
+        // },
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+        },
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+              return '<span class="' + className + '">' + (menu[index]) + '</span>';
+            },
+        },
+                                    
+        on: {
+          slideChangeTransitionStart: function () {
+            // Slide captions
+            var swiper = this;
+            setTimeout(function () {
+                var currentTitle = $(swiper.slides[swiper.activeIndex]).attr("data-title");
+                var currentSubtitle = $(swiper.slides[swiper.activeIndex]).attr("data-subtitle");
+            }, 500);
+            gsap.to($(".current-title"), 0.4, {autoAlpha: 0, y: -40, ease: Power1.easeIn});
+            gsap.to($(".current-subtitle"), 0.4, {autoAlpha: 0, y: -40, delay: 0.15, ease: Power1.easeIn});
+          },
+          slideChangeTransitionEnd: function () {
+            // Slide captions
+            var swiper = this;
+            var currentTitle = $(swiper.slides[swiper.activeIndex]).attr("data-title");
+            var currentSubtitle = $(swiper.slides[swiper.activeIndex]).attr("data-subtitle");
+            $(".slide-captions").html(function() {
+                return "<h2 class='current-title'>" + currentTitle + "</h2>" + "<h3 class='current-subtitle'>" + currentSubtitle + "</h3>";
+            });
+            gsap.from($(".current-title"), 0.4, {autoAlpha: 0, y: 40, ease: Power1.easeOut});
+            gsap.from($(".current-subtitle"), 0.4, {autoAlpha: 0, y: 40, delay: 0.15, ease: Power1.easeOut});
+          }
+        }
+      }
+    );
+    $(document).ready(function(){
+      // Slide captions
+      var currentTitle = $(swiper.slides[swiper.activeIndex]).attr("data-title");
+      var currentSubtitle = $(swiper.slides[swiper.activeIndex]).attr("data-subtitle");
+      $(".slide-captions").html(function() {
+      return "<h2 class='current-title'>" + currentTitle + "</h2>" + "<h3 class='current-subtitle'>" + currentSubtitle + "</h3>";
+      });
+    });
+  </script>
+</body>
+</html>
